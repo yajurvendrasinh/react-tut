@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import classname from 'classnames';
 
-const final = classname('abc', 'fds')
-console.log(final)
+
 function Button( { 
     children,
     primary,
@@ -11,10 +10,25 @@ function Button( {
     success,
     warning,
     rounded,
-    outline
+    outline,
+    ...rest
 } ) {
+    const classes = classname('py-1.5 px-3 border border-solid border-2',{
+        'bg-blue-500 border-blue-400 text-white' : primary,
+        'bg-gray-400 border-gray-900 text-white' : secondary,
+        'bg-red-500 border-red-400 text-white' : danger,
+        'bg-green-500 border-green-400 text-white' : success,
+        'bg-orange-500 border-orange-400 text-white' : warning,
+        'rounded-full' : rounded,
+        'bg-white' : outline,
+        'text-blue-700' : outline && primary,
+        'text-gray-900' : outline && secondary,
+        'text-red-700' : outline && danger,
+        'text-green-700' : outline && success,
+        'text-orange-700' : outline && warning
+    })
     return (
-        <button className='py-1.5 px-3 text-white border-solid border-2 bg-blue-500 border-blue-400'>{children}</button>
+        <button {...rest} className={classes}>{children}</button>
     )
 }
 
