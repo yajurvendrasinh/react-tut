@@ -10,7 +10,8 @@ function App() {
   // const [swatchOne, selectSwatchOne] = useState([]);
   // const [swatchTwo, selectSwatchTwo] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [pokemonData, setPokemonData] = useState(null);
+  const [pokemonData, setPokemonData] = useState([]);
+  const [nextPage, setNextPage] = useState(0);
 
   const swatchQueueOne = ['gray', 'brown', 'gold'];
   const swatchQueueTwo = ['red', 'blue', 'green'];
@@ -33,7 +34,7 @@ function App() {
   // };
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/`)
+    fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${nextPage}&limit=5`)
       .then((response) => {
         console.log('Go Response', response);
         if (response.ok) {
@@ -67,6 +68,27 @@ function App() {
     });
   }
 
+  const pokemonDataFunc = () => {
+    return pokemonData.map((pokemon) => {
+      let pokemonName = pokemon.name;
+      let pokemonDataUrl = pokemon.url;
+      return (
+        <PokemonCard
+          pokemonName={pokemonName}
+          pokemonDataUrl={pokemonDataUrl}
+        />
+      );
+    });
+  };
+
+  const showNext = () => {
+    setNextPage((prevPage) => prevPage + 5);
+  };
+  const showPrev = () => {
+    console.log(nextPage);
+    setNextPage((prevPage) => prevPage - 5);
+  };
+
   return (
     <div>
       {/* <CounterOptimized /> */}
@@ -74,14 +96,15 @@ function App() {
       {/* <section className='row'>
         <div className='container'>{colorBlocks(swatchQueueOne, '1')}</div>
       </section> */}
-      <section className='row'>
-        {isLoading && <h6>Gotta Catch Em All....</h6>}
-        {/* <PokemonCard
-          image='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg'
-          name='bulbasaur'
-          number={1}
-        /> */}
-        {pokemonData && pokeCards}
+      <section className='column'>
+        <section className='row'>
+          {!pokemonData && <h6>Gotta Catch Em All....</h6>}
+          {pokemonData && pokemonDataFunc()}
+        </section>
+        <section className='row'>
+          <button onClick={showPrev}>Previous</button>
+          <button onClick={showNext}>Next</button>
+        </section>
       </section>
     </div>
   );

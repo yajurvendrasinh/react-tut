@@ -33,7 +33,7 @@ function PokemonCard({ pokemonName, pokemonDataUrl }) {
   return (
     <div>
       <div className='card-container'>
-        <img alt={pokemonName} src={pokeImageSrc} />
+        <img className='img-responsive' alt={pokemonName} src={pokeImageSrc} />
         <h5>
           {/* <span>{number}</span> */}
           <span>{pokemonName}</span>
