@@ -1,0 +1,63 @@
+section {
+  display: flex;
+  border: 1px solid gray;
+  padding: 15px;
+  margin: 10px;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}
+.palatte {
+  display: flex;
+}
+.color-block {
+  height: 50px;
+  width: 50px;
+  margin: 5px;
+}
+.red {
+  background-color: red;
+}
+.blue {
+  background-color: blue;
+}
+.green {
+  background-color: green;
+}
+.gray {
+  background-color: gray;
+}
+.brown {
+  background-color: brown;
+}
+.beige {
+  background-color: beige;
+}
+.yellow {
+  background-color: rgb(255, 200, 0);
+}
+.pink {
+  background-color: pink;
+}
+.purple {
+  background-color: purple;
+}
+.gold {
+  background-color: gold;
+}
+.active {
+  border: 5px solid black;
+}
+.card-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+}
