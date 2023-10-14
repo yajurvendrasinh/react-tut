@@ -3,6 +3,7 @@ section {
   border: 1px solid gray;
   padding: 15px;
   margin: 10px;
+  overflow-x: scroll;
 }
 
 .row {
@@ -60,4 +61,8 @@ section {
   border-radius: 5px;
   padding: 10px;
   margin: 5px;
+  width: 350px;
+}
+.img-responsive {
+  width: 100%;
 }

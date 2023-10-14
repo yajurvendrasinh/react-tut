@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import ColorQueue from './components/ColorQueue';
 import CounterOptimized from './components/CounterOptimized';
-import './styles/styles.css';
+import './styles/base.css';
 import Colorform from './components/Colorform';
 import PokemonCard from './components/PokemonCard';
 
@@ -108,8 +108,8 @@ function App() {
           {pokemonData && pokemonDataFunc()}
         </section>
         <section className='row'>
-          <button onClick={showPrevPage}>Previous</button>
-          <button onClick={showNextPage}>Next</button>
+          {prevPage && <button onClick={showPrevPage}>Previous</button>}
+          {nextPage && <button onClick={showNextPage}>Next</button>}
         </section>
       </section>
     </div>
