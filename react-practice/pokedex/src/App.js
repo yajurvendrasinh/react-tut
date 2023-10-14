@@ -11,7 +11,11 @@ function App() {
   // const [swatchTwo, selectSwatchTwo] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [pokemonData, setPokemonData] = useState([]);
-  const [nextPage, setNextPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(
+    'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=5'
+  );
+  const [nextPage, setNextPage] = useState('');
+  const [prevPage, setPrevPage] = useState('');
 
   const swatchQueueOne = ['gray', 'brown', 'gold'];
   const swatchQueueTwo = ['red', 'blue', 'green'];
@@ -34,24 +38,26 @@ function App() {
   // };
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${nextPage}&limit=5`)
+    fetch(currentPage)
       .then((response) => {
-        console.log('Go Response', response);
         if (response.ok) {
+          setIsLoading(false);
           return response.json();
         } else {
           throw Error('failed fetching response');
         }
       })
       .then((data) => {
-        console.log('pokemon data:', data);
+        console.log('Next', data.next);
+        console.log('Prev', data.previous);
+        setNextPage(data.next);
+        setPrevPage(data.previous);
         setPokemonData(data.results);
-        setIsLoading(false);
       })
       .catch((error) => {
-        console.log('Damn error');
+        console.log('Damn error', error);
       });
-  }, []);
+  }, [currentPage]);
 
   let pokeCards;
 
@@ -61,6 +67,7 @@ function App() {
       let pokemonDataUrl = pokemon.url;
       return (
         <PokemonCard
+          key={pokemonName}
           pokemonName={pokemonName}
           pokemonDataUrl={pokemonDataUrl}
         />
@@ -81,12 +88,11 @@ function App() {
     });
   };
 
-  const showNext = () => {
-    setNextPage((prevPage) => prevPage + 5);
+  const showNextPage = () => {
+    setCurrentPage(nextPage);
   };
-  const showPrev = () => {
-    console.log(nextPage);
-    setNextPage((prevPage) => prevPage - 5);
+  const showPrevPage = () => {
+    setCurrentPage(prevPage);
   };
 
   return (
@@ -102,8 +108,8 @@ function App() {
           {pokemonData && pokemonDataFunc()}
         </section>
         <section className='row'>
-          <button onClick={showPrev}>Previous</button>
-          <button onClick={showNext}>Next</button>
+          <button onClick={showPrevPage}>Previous</button>
+          <button onClick={showNextPage}>Next</button>
         </section>
       </section>
     </div>
