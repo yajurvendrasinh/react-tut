@@ -18,7 +18,7 @@ function PokemonCard({ pokemonName, pokemonDataUrl }) {
       .catch((error) => {
         console.log('api fetch failed', error);
       });
-  }, [pokemonData]);
+  }, [pokemonName]);
 
   let pokeImageSrc;
   let pokemonAbilities;

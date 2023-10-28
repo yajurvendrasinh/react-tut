@@ -1,118 +1,71 @@
 import { useState, useEffect } from 'react';
-import ColorQueue from './components/ColorQueue';
-import CounterOptimized from './components/CounterOptimized';
-import './styles/base.css';
-import Colorform from './components/Colorform';
-import PokemonCard from './components/PokemonCard';
+import Carousal from './CarousalComponent/Carousal';
 
 function App() {
-  // const items = ['a', 'b', 'c', 'd'];
-  // const [swatchOne, selectSwatchOne] = useState([]);
-  // const [swatchTwo, selectSwatchTwo] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [pokemonData, setPokemonData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(
-    'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=5'
-  );
-  const [nextPage, setNextPage] = useState('');
-  const [prevPage, setPrevPage] = useState('');
+  const [imageData, setImageData] = useState([]);
+  const [country, setCountry] = useState();
+  const [capital, setCapital] = useState();
+  const [colorMap, setColorMap] = useState('');
 
-  const swatchQueueOne = ['gray', 'brown', 'gold'];
-  const swatchQueueTwo = ['red', 'blue', 'green'];
-  const swatchQueueThree = ['pink', 'gray', 'purple'];
+  const ButtonState = 'DEFAULT' | 'SELECTED' | 'WRONG';
+  const blue = 'blue';
+  const red = 'red';
 
-  // const selectSwatch = (color, id) => {
-  //   console.log(color, id);
-  // };
+  const countryCapital = [
+    { 'country-one': 'capital-one', 'country-two': 'capital-two' },
+  ];
 
-  // const colorBlocks = (swatches, id) => {
-  //   return swatches.map((color) => {
-  //     return (
-  //       <ColorQueue
-  //         selectSwatch={() => selectSwatch(color)}
-  //         color={color}
-  //         id={1}
-  //       />
-  //     );
-  //   });
-  // };
+  let countryList = Object.keys(...countryCapital);
+  let capitalList = Object.values(...countryCapital);
+
+  const handleSelect = (data) => {
+    console.log(data);
+    // console.log(e.target.value === data);
+    setColorMap({ ...colorMap, [data]: 'SELECTED' });
+    console.log(colorMap);
+  };
+
+  let renderList = [...countryList, ...capitalList].map((data, index) => {
+    return (
+      <button
+        className={colorMap[data] === 'SELECTED' ? 'selected' : ''}
+        key={index}
+        onClick={() => handleSelect(data)}
+      >
+        {data}
+      </button>
+    );
+  });
 
   useEffect(() => {
-    fetch(currentPage)
+    fetch(`https://jsonplaceholder.typicode.com/albums/1/photos`)
       .then((response) => {
         if (response.ok) {
-          setIsLoading(false);
           return response.json();
         } else {
-          throw Error('failed fetching response');
+          throw Error;
         }
       })
-      .then((data) => {
-        console.log('Next', data.next);
-        console.log('Prev', data.previous);
-        setNextPage(data.next);
-        setPrevPage(data.previous);
-        setPokemonData(data.results);
+      .then((imageData) => {
+        setImageData(imageData);
       })
       .catch((error) => {
-        console.log('Damn error', error);
+        return error;
       });
-  }, [currentPage]);
-
-  let pokeCards;
-
-  if (pokemonData !== null) {
-    pokeCards = pokemonData.map((pokemon) => {
-      let pokemonName = pokemon.name;
-      let pokemonDataUrl = pokemon.url;
-      return (
-        <PokemonCard
-          key={pokemonName}
-          pokemonName={pokemonName}
-          pokemonDataUrl={pokemonDataUrl}
-        />
-      );
-    });
-  }
-
-  const pokemonDataFunc = () => {
-    return pokemonData.map((pokemon) => {
-      let pokemonName = pokemon.name;
-      let pokemonDataUrl = pokemon.url;
-      return (
-        <PokemonCard
-          pokemonName={pokemonName}
-          pokemonDataUrl={pokemonDataUrl}
-        />
-      );
-    });
-  };
-
-  const showNextPage = () => {
-    setCurrentPage(nextPage);
-  };
-  const showPrevPage = () => {
-    setCurrentPage(prevPage);
-  };
+  }, []);
 
   return (
-    <div>
-      {/* <CounterOptimized /> */}
-      {/* <Colorform /> */}
-      {/* <section className='row'>
-        <div className='container'>{colorBlocks(swatchQueueOne, '1')}</div>
-      </section> */}
-      <section className='column'>
-        <section className='row'>
-          {!pokemonData && <h6>Gotta Catch Em All....</h6>}
-          {pokemonData && pokemonDataFunc()}
-        </section>
-        <section className='row'>
-          {prevPage && <button onClick={showPrevPage}>Previous</button>}
-          {nextPage && <button onClick={showNextPage}>Next</button>}
-        </section>
-      </section>
-    </div>
+    <div>{renderList}</div>
+    // <div
+    //   style={{
+    //     maxWidth: '600px',
+    //     width: '100%',
+    //     height: '600px',
+    //     margin: '0 auto ',
+    //   }}
+    // >
+    //   <Carousal imageData={imageData} />
+    // </div>
   );
 }
 
