@@ -27,7 +27,7 @@ export default function LogIn() {
   }
 
   return (
-    <>
+    <div style={{ maxWidth: "500px" }}>
       <Card>
         <Card.Body>
           <h3 className="text-center mb-4">Log In</h3>
@@ -47,6 +47,6 @@ export default function LogIn() {
           </Form>
         </Card.Body>
       </Card>
-    </>
+    </div>
   );
 }
