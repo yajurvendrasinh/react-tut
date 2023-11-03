@@ -41,7 +41,7 @@ export default function PetList({ status }) {
   return (
     <div>
       <h2>
-        <Badge classname="m-4" bg="secondary">
+        <Badge className="m-4" bg="secondary">
           {status.charAt(0).toUpperCase() + status.slice(1)} Pets
         </Badge>
       </h2>

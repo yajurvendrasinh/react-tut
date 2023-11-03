@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Card, Button, Alert } from "react-bootstrap";
+import { Card, Button, Alert, Form } from "react-bootstrap";
 import PetList from "./PetList";
+import SelectPet from "./SelectPet";
+
+const STATUS = {
+  AVAILABLE: "available",
+  SOLD: "sold",
+  PENDING: "pending",
+};
 
 export default function Dashboard() {
   const [error, setError] = useState("");
+  const [selectOption, setSelectOption] = useState(STATUS.AVAILABLE);
   const { logout } = useAuth();
   const navigateTo = useNavigate();
 
@@ -19,12 +27,16 @@ export default function Dashboard() {
     }
   }
 
+  // const petStatus = [STATUS.AVAILABLE, STATUS.SOLD, STATUS.PENDING];
+  function showOptions(e) {
+    setSelectOption(e.target.value);
+  }
+
   return (
     <div>
       Dashboard
-      <PetList status={"available"} />
-      <PetList status={"sold"} />
-      <PetList status={"pending"} />
+      <SelectPet onChangeOptions={showOptions} options={STATUS} />
+      <PetList status={selectOption} />
       <Button variant="link" onClick={logoutUser}>
         Log Out
         {error && <Alert variant="danger">{error}</Alert>}
