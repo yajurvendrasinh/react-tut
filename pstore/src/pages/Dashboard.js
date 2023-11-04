@@ -59,6 +59,7 @@ export default function Dashboard() {
               dataCy={CYPRESS_ID.SHOW_PET_ACCORDING_TO_STATUS}
               onChangeOptions={showOptions}
               options={STATUS}
+              defaultValue={selectOption}
             />
           </Col>
         </Row>

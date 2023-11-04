@@ -59,8 +59,11 @@ export default function PetList({ status }) {
           ))}
           {pets.length === 0 && (
             <Alert className="m-5" variant="danger">
-              {petError && <p>{petError}</p>}
-              Kindly Get in touch with the store manager
+              {petError ? (
+                <p>{petError}</p>
+              ) : (
+                <p>Kindly Get in touch with the store manager</p>
+              )}
             </Alert>
           )}
         </Col>

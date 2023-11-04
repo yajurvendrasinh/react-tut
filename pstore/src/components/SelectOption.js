@@ -8,22 +8,15 @@ export default function SelectOption({
 }) {
   return (
     <div className="select-container">
-      <Form.Select size="lg" data-cy={dataCy} onChange={onChangeOptions}>
-        <option
-          selected={defaultValue === options.AVAILABLE}
-          value={options.AVAILABLE}
-        >
-          {options.AVAILABLE}
-        </option>
-        <option selected={defaultValue === options.SOLD} value={options.SOLD}>
-          {options.SOLD}
-        </option>
-        <option
-          selected={defaultValue === options.PENDING}
-          value={options.PENDING}
-        >
-          {options.PENDING}
-        </option>
+      <Form.Select
+        value={defaultValue}
+        size="lg"
+        data-cy={dataCy}
+        onChange={onChangeOptions}
+      >
+        <option value={options.AVAILABLE}>{options.AVAILABLE}</option>
+        <option value={options.SOLD}>{options.SOLD}</option>
+        <option value={options.PENDING}>{options.PENDING}</option>
       </Form.Select>
     </div>
   );
