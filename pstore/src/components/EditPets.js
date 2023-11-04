@@ -1,6 +1,8 @@
 import React, { useReducer } from "react";
 import axios from "axios";
 import { Button } from "react-bootstrap";
+import SelectOption from "./SelectOption";
+import { CYPRESS_ID } from "../cy_constant";
 
 // Define action types
 const ACTIONS = {
@@ -9,6 +11,12 @@ const ACTIONS = {
   SAVE_EDIT: "save_edit",
   UPDATE_NAME: "update_name",
   UPDATE_STATUS: "update_status",
+};
+
+const STATUS = {
+  AVAILABLE: "available",
+  SOLD: "sold",
+  PENDING: "pending",
 };
 
 // Reducer function to handle state changes
@@ -42,11 +50,15 @@ export default function EditPets({ pet, onUpdate }) {
   };
 
   const handleUpdate = () => {
+    console.log("post:", pet.name, pet.status);
     axios
-      .post(`https://petstore.swagger.io/v2/pet/${pet.id}`, {
-        name,
-        status,
-      })
+      .post(
+        `http://localhost:8080/api/v3/pet/${pet.id}?name=${name}&status=${status}`,
+        {
+          name,
+          status,
+        }
+      )
       .then(() => {
         dispatch({ type: ACTIONS.SAVE_EDIT });
         onUpdate({ ...pet, name, status });
@@ -60,10 +72,14 @@ export default function EditPets({ pet, onUpdate }) {
     dispatch({ type: ACTIONS.CANCEL_EDIT });
   };
 
+  const onStatusChange = (e) => {
+    dispatch({ type: ACTIONS.UPDATE_STATUS, payload: e.target.value });
+    console.log(e.target.value);
+  };
+
   return (
     <div>
-      <h3>Edit Pet Information</h3>
-      <p>
+      <div className="w-100 m-2">
         Name:
         {isEditing ? (
           <input
@@ -75,27 +91,35 @@ export default function EditPets({ pet, onUpdate }) {
         ) : (
           name
         )}
-      </p>
-      <p>
+      </div>
+      <div className="w-100 m-2">
         Status:
         {isEditing ? (
-          <input
-            value={status}
-            onChange={(e) =>
-              dispatch({ type: ACTIONS.UPDATE_STATUS, payload: e.target.value })
-            }
+          <SelectOption
+            data-cy={CYPRESS_ID.CHANGE_STATUS}
+            onChangeOptions={onStatusChange}
+            options={STATUS}
           />
         ) : (
-          status
+          <p data-cy={CYPRESS_ID.PET_STATUS_BADGE}>{status}</p>
         )}
-      </p>
+      </div>
       {isEditing ? (
         <div>
-          <button onClick={handleUpdate}>Save</button>
+          <button
+            data-cy={CYPRESS_ID.UPDATE_PET_INFO_BUTTON}
+            onClick={handleUpdate}
+          >
+            Save
+          </button>
           <button onClick={handleCancelEdit}>Cancel</button>
         </div>
       ) : (
-        <Button variant="warning" onClick={handleEdit}>
+        <Button
+          data-cy={CYPRESS_ID.EDIT_PET_BUTTON}
+          variant="warning"
+          onClick={handleEdit}
+        >
           Edit
         </Button>
       )}

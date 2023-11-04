@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Card, Button, Alert, Form } from "react-bootstrap";
 import PetList from "./PetList";
-import SelectPet from "./SelectPet";
+import SelectOption from "./SelectOption";
+import { CYPRESS_ID } from "../cy_constant";
 
 const STATUS = {
   AVAILABLE: "available",
@@ -34,8 +35,8 @@ export default function Dashboard() {
 
   return (
     <div>
-      Dashboard
-      <SelectPet onChangeOptions={showOptions} options={STATUS} />
+      <h3 data-cy={CYPRESS_ID.WELCOME_MESSAGE}>Dashboard</h3>
+      <SelectOption onChangeOptions={showOptions} options={STATUS} />
       <PetList status={selectOption} />
       <Button variant="link" onClick={logoutUser}>
         Log Out

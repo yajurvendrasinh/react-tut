@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Card, Form, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { CYPRESS_ID } from "../cy_constant";
 
 export default function LogIn() {
   const emailRef = useRef();
@@ -35,13 +36,27 @@ export default function LogIn() {
           <Form onSubmit={loginAdmin}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
+              <Form.Control
+                data-cy={CYPRESS_ID.USERNAME_INPUT}
+                type="email"
+                ref={emailRef}
+                required
+              />
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
+              <Form.Control
+                data-cy={CYPRESS_ID.PASSWORD_INPUT}
+                type="password"
+                ref={passwordRef}
+                required
+              />
             </Form.Group>
-            <Button className="w-100 mt-4" type="submit">
+            <Button
+              data-cy={CYPRESS_ID.LOGIN_BUTTON}
+              className="w-100 mt-4"
+              type="submit"
+            >
               Log In
             </Button>
           </Form>

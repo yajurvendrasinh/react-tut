@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 
-export default function SelectPet({ onChangeOptions, options }) {
+export default function SelectOption({ onChangeOptions, options }) {
   return (
     <div className="select-container">
       <Form.Select onChange={onChangeOptions}>
