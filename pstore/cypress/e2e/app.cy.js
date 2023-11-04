@@ -18,19 +18,24 @@ describe("Pet Store App", () => {
       "be.visible"
     );
 
-    // EDIT PET TEST
+    // EDIT PET Status
     cy.get(generateTestSelector(CYPRESS_ID.EDIT_PET_BUTTON)).eq(0).click();
-    cy.get(generateTestSelector(CYPRESS_ID.CHANGE_STATUS_DROPDOWN)).should(
-      "be.visible"
+    cy.get(generateTestSelector(CYPRESS_ID.CHANGE_STATUS_DROPDOWN)).select(
+      "sold"
     );
 
     // Change pet status and save
-    // cy.get(generateTestSelector(CYPRESS_ID.UPDATE_PET_INFO_BUTTON))
-    //   .eq(0)
-    //   .click();
-    // cy.get(generateTestSelector(CYPRESS_ID.PET_STATUS_BADGE)).should(
-    //   "be.visible"
-    // );
+    cy.get(generateTestSelector(CYPRESS_ID.UPDATE_PET_INFO_BUTTON))
+      .eq(0)
+      .click();
+    cy.get(generateTestSelector(CYPRESS_ID.PET_STATUS_BADGE)).should(
+      "be.visible"
+    );
+
+    // Check is pet is now available in SOLD list
+    cy.get(
+      generateTestSelector(CYPRESS_ID.SHOW_PET_ACCORDING_TO_STATUS)
+    ).select("sold");
 
     // // View available pets
     // cy.contains("Available Pets").should("be.visible");

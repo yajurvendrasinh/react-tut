@@ -5,12 +5,7 @@ import { Card, Button, Alert, Form } from "react-bootstrap";
 import PetList from "./PetList";
 import SelectOption from "./SelectOption";
 import { CYPRESS_ID } from "../cy_constant";
-
-const STATUS = {
-  AVAILABLE: "available",
-  SOLD: "sold",
-  PENDING: "pending",
-};
+import { STATUS } from "../constants";
 
 export default function Dashboard() {
   const [error, setError] = useState("");
@@ -28,7 +23,6 @@ export default function Dashboard() {
     }
   }
 
-  // const petStatus = [STATUS.AVAILABLE, STATUS.SOLD, STATUS.PENDING];
   function showOptions(e) {
     setSelectOption(e.target.value);
   }
@@ -36,7 +30,11 @@ export default function Dashboard() {
   return (
     <div>
       <h3 data-cy={CYPRESS_ID.WELCOME_MESSAGE}>Dashboard</h3>
-      <SelectOption onChangeOptions={showOptions} options={STATUS} />
+      <SelectOption
+        dataCy={CYPRESS_ID.SHOW_PET_ACCORDING_TO_STATUS}
+        onChangeOptions={showOptions}
+        options={STATUS}
+      />
       <PetList status={selectOption} />
       <Button variant="link" onClick={logoutUser}>
         Log Out

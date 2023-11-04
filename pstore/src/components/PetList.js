@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EditPets from "./EditPets";
-import { Badge, Card } from "react-bootstrap";
+import { Card, Badge } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 
 export default function PetList({ status }) {
   const [pets, setPets] = useState([]);
@@ -41,15 +42,12 @@ export default function PetList({ status }) {
 
   return (
     <div>
-      <h2>
-        <Badge className="m-4" bg="secondary">
-          {status.charAt(0).toUpperCase() + status.slice(1)} Pets
-        </Badge>
-      </h2>
       {loading ? (
-        <p>Loading...</p>
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
       ) : (
-        <div className="d-flex w-90">
+        <div className="d-flex w-100">
           {pets.map((pet) => (
             <Card className="m-2" style={{ width: "15rem" }} key={pet.id}>
               <Card.Body>

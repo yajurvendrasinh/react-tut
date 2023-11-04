@@ -6,5 +6,8 @@ export const CYPRESS_ID = {
   CHANGE_STATUS_DROPDOWN: "change-status-dropdown",
   WELCOME_MESSAGE: "welcome-message",
   UPDATE_PET_INFO_BUTTON: "update-pet-info-button",
+  CANCEL_PET_INFO_BUTTON: "cancel-pet-info-button",
   PET_STATUS_BADGE: "pet-status-badge",
+  SHOW_PET_ACCORDING_TO_STATUS: "show-pet-according-to-status",
+  EDIT_NAME_INPUT: "edit-name-input",
 };

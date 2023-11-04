@@ -1,23 +1,10 @@
 import React, { useReducer } from "react";
 import axios from "axios";
-import { Button } from "react-bootstrap";
+import { Button, Badge, Form, Card } from "react-bootstrap";
+import InputGroup from "react-bootstrap/InputGroup";
 import SelectOption from "./SelectOption";
 import { CYPRESS_ID } from "../cy_constant";
-
-// Define action types
-const ACTIONS = {
-  START_EDIT: "start_edit",
-  CANCEL_EDIT: "cancel_edit",
-  SAVE_EDIT: "save_edit",
-  UPDATE_NAME: "update_name",
-  UPDATE_STATUS: "update_status",
-};
-
-const STATUS = {
-  AVAILABLE: "available",
-  SOLD: "sold",
-  PENDING: "pending",
-};
+import { STATUS, ACTIONS, BADGE_STATUS } from "../constants";
 
 // Reducer function to handle state changes
 const editReducer = (state, action) => {
@@ -50,7 +37,7 @@ export default function EditPets({ pet, onUpdate }) {
   };
 
   const handleUpdate = () => {
-    console.log("post:", pet.name, pet.status);
+    console.log("post:", name, status);
     axios
       .post(
         `http://localhost:8080/api/v3/pet/${pet.id}?name=${name}&status=${status}`,
@@ -74,50 +61,80 @@ export default function EditPets({ pet, onUpdate }) {
 
   const onStatusChange = (e) => {
     dispatch({ type: ACTIONS.UPDATE_STATUS, payload: e.target.value });
-    console.log(e.target.value);
   };
 
   return (
     <div>
       <div className="w-100 m-2">
-        Name:
-        {isEditing ? (
-          <input
-            value={name}
-            onChange={(e) =>
-              dispatch({ type: ACTIONS.UPDATE_NAME, payload: e.target.value })
-            }
-          />
-        ) : (
-          name
+        {isEditing && (
+          <InputGroup>
+            <Form.Control
+              data-cy={CYPRESS_ID.EDIT_NAME_INPUT}
+              value={name}
+              onChange={(e) =>
+                dispatch({ type: ACTIONS.UPDATE_NAME, payload: e.target.value })
+              }
+              placeholder="Username"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+            />
+          </InputGroup>
         )}
       </div>
-      <div className="w-100 m-2">
-        Status:
+      <div className="w-100">
         {isEditing ? (
           <SelectOption
-            data-cy={CYPRESS_ID.CHANGE_STATUS}
+            className={"test-select"}
+            dataCy={CYPRESS_ID.CHANGE_STATUS_DROPDOWN}
             onChangeOptions={onStatusChange}
             options={STATUS}
+            defaultValue={pet.status}
           />
         ) : (
-          <p data-cy={CYPRESS_ID.PET_STATUS_BADGE}>{status}</p>
+          <div data-cy={CYPRESS_ID.PET_STATUS_BADGE}>
+            <Card.Title className="w-100 mb-2">{pet.name}</Card.Title>
+            {pet.status === STATUS.AVAILABLE && (
+              <Badge className="mb-2" bg={BADGE_STATUS.AVAILABLE}>
+                {pet.status}
+              </Badge>
+            )}
+            {pet.status === STATUS.SOLD && (
+              <Badge className="mb-2" bg={BADGE_STATUS.SOLD}>
+                {pet.status}
+              </Badge>
+            )}
+            {pet.status === STATUS.PENDING && (
+              <Badge className="mb-2" bg={BADGE_STATUS.PENDING}>
+                {pet.status}
+              </Badge>
+            )}
+          </div>
         )}
       </div>
       {isEditing ? (
         <div>
-          <button
+          <Button
+            variant="primary"
+            className="w-100 m-1"
             data-cy={CYPRESS_ID.UPDATE_PET_INFO_BUTTON}
             onClick={handleUpdate}
           >
             Save
-          </button>
-          <button onClick={handleCancelEdit}>Cancel</button>
+          </Button>
+          <Button
+            data-cy={CYPRESS_ID.CANCEL_PET_INFO_BUTTON}
+            variant="danger"
+            className="w-100 m-1"
+            onClick={handleCancelEdit}
+          >
+            Cancel
+          </Button>
         </div>
       ) : (
         <Button
           data-cy={CYPRESS_ID.EDIT_PET_BUTTON}
           variant="warning"
+          className="w-100"
           onClick={handleEdit}
         >
           Edit
