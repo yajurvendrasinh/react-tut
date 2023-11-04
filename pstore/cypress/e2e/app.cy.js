@@ -36,20 +36,5 @@ describe("Pet Store App", () => {
     cy.get(
       generateTestSelector(CYPRESS_ID.SHOW_PET_ACCORDING_TO_STATUS)
     ).select("sold");
-
-    // // View available pets
-    // cy.contains("Available Pets").should("be.visible");
-
-    // // Edit the pet's name and status
-    // cy.get('[placeholder="Name"]').clear().type("New Pet Name");
-    // cy.get('[placeholder="Status"]').clear().type("Pending");
-
-    // // Save the changes
-    // cy.contains("Save").click();
-
-    // // Confirm that the changes were saved
-    // cy.contains("Edit Pet Information").should("be.visible");
-    // cy.contains("Name: New Pet Name").should("be.visible");
-    // cy.contains("Status: Pending").should("be.visible");
   });
 });

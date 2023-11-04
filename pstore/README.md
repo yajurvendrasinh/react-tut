@@ -1,72 +1,51 @@
-# Getting Started with Create React App
+# The Pet Store Inventory Management App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a mini exercise of an pet store inventory.\
+This project was bootstrapped with [Create React App]\
+It utilizes a small portion of sample data from Pet Store API\
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, you shall run:
 
-### `npm start`
+### `npm install`
+
+This installs all the dependencies required for the frontend project to run.
+
+### `npm run start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
-You may also see any lint errors in the console.
+You may also see data error if you Docker isnt running yet.
 
-### `npm test`
+Use the following command in another terminal to launch Docker with the required API.\
+`Pre-requiiste` you will require Docker app installed on your device.\
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `docker run -p 8080:8080 swaggerapi/petstore3`
 
-### `npm run build`
+To run the E2E tests and Component test
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `npm run cypress:open`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This will provide you with a cypress window to run E2E tests and Component Test provided for the appliaction\
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Navigating through the app
 
-### `npm run eject`
+You will be greeted with a `Login` form.\
+The app uses `Google Firebase` for user auth\
+Kindly use the following credentials to login\
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+[Email] : `user@user.com`
+[Password] : `LoginUser`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Once logged-in you will see the Dashboard of inventory of `available` pets at the pet store.\
+You can select the inventory type by selecting the options from the menu to view `available`, `sold` and `pending` pet in the inventory.\
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+You can click on `Edit` button to edit information such as `Name` and `Status` of the Pet.\
+Clicking on `Save` updates the pet information.\
+Clicking on `Cancel` cancels the update operation.\
+CLicking on `Logout` button logs out the user and navigates the user to the main `Login` screen
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-### docker run -p 8080:8080 swaggerapi/petstore3
+## Enjoy

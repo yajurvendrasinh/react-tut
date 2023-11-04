@@ -27,6 +27,16 @@
   width: 300px;
 }
 
+.pet-card-inner {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pet-card-inner > .btn-push {
+  margin-top: auto;
+}
+
 /* PET LIST STYLES */
 
 .pet-list {

@@ -37,7 +37,6 @@ export default function EditPets({ pet, onUpdate }) {
   };
 
   const handleUpdate = () => {
-    console.log("post:", name, status);
     axios
       .post(
         `http://localhost:8080/api/v3/pet/${pet.id}?name=${name}&status=${status}`,
@@ -75,9 +74,9 @@ export default function EditPets({ pet, onUpdate }) {
               onChange={(e) =>
                 dispatch({ type: ACTIONS.UPDATE_NAME, payload: e.target.value })
               }
-              placeholder="Username"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
+              placeholder="Edit pet name"
+              aria-label="edit pet name"
+              aria-describedby="input box to edit pet name"
             />
           </InputGroup>
         )}
@@ -93,7 +92,7 @@ export default function EditPets({ pet, onUpdate }) {
           />
         ) : (
           <div data-cy={CYPRESS_ID.PET_STATUS_BADGE}>
-            <Card.Title className=" mb-2">{pet.name}</Card.Title>
+            <Card.Title className="mb-2">{pet.name}</Card.Title>
             {pet.status === STATUS.AVAILABLE && (
               <Badge className="mb-2" bg={BADGE_STATUS.AVAILABLE}>
                 {pet.status}
@@ -113,7 +112,7 @@ export default function EditPets({ pet, onUpdate }) {
         )}
       </div>
       {isEditing ? (
-        <div>
+        <div className="btn-push">
           <Button
             variant="primary"
             className="mb-1 w-100"
@@ -125,21 +124,23 @@ export default function EditPets({ pet, onUpdate }) {
           <Button
             data-cy={CYPRESS_ID.CANCEL_PET_INFO_BUTTON}
             variant="danger"
-            className="mb-2 w-100"
+            className="w-100"
             onClick={handleCancelEdit}
           >
             Cancel
           </Button>
         </div>
       ) : (
-        <Button
-          data-cy={CYPRESS_ID.EDIT_PET_BUTTON}
-          variant="warning"
-          className="w-100"
-          onClick={handleEdit}
-        >
-          Edit
-        </Button>
+        <div className="btn-push">
+          <Button
+            data-cy={CYPRESS_ID.EDIT_PET_BUTTON}
+            variant="warning"
+            className="w-100"
+            onClick={handleEdit}
+          >
+            Edit
+          </Button>
+        </div>
       )}
     </div>
   );

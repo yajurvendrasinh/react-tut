@@ -22,7 +22,6 @@ export default function PetList({ status }) {
           headers: { "Content-Type": "applicaton/json" },
         }
       );
-      console.log("Getting Reponse:", response.data);
       setPets(response.data);
     } catch (error) {
       console.error("Error fetching pets:", error);
@@ -32,7 +31,6 @@ export default function PetList({ status }) {
     }
   };
 
-  // Function to update the pet information in the pet state
   const handleUpdatePet = (updatedPet) => {
     setPets((prevPets) =>
       prevPets.map((pet) => (pet.id === updatedPet.id ? updatedPet : pet))
@@ -61,10 +59,10 @@ export default function PetList({ status }) {
           ))}
           {pets.length === 0 && (
             <Alert className="m-5" variant="danger">
+              {petError && <p>{petError}</p>}
               Kindly Get in touch with the store manager
             </Alert>
           )}
-          {petError && <p>{petError}</p>}
         </Col>
       )}
     </div>

@@ -45,14 +45,16 @@ export default function Dashboard() {
           <Nav>
             <Button variant="light" onClick={logoutUser}>
               Log Out
-              {error && <Alert variant="danger">{error}</Alert>}
             </Button>
           </Nav>
         </Container>
       </Navbar>
       <Container>
         <Row className="justify-content-md-center">
-          <Col xs md="6">
+          <Col className="mb-4 text-center" xs={10} md={10} lg={10}>
+            <h2>Pet Inventory</h2>
+          </Col>
+          <Col xs md={6}>
             <SelectOption
               dataCy={CYPRESS_ID.SHOW_PET_ACCORDING_TO_STATUS}
               onChangeOptions={showOptions}

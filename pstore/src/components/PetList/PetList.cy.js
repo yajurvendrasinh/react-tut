@@ -19,7 +19,7 @@ describe("PetList Component", () => {
 
     cy.contains("API error").should("be.visible");
 
-    cy.contains("No pets found.").should("exist");
+    cy.contains("Kindly Get in touch with the store manager").should("exist");
     cy.get(generateTestSelector(CYPRESS_ID.EDIT_PET_BUTTON)).should(
       "not.exist"
     );
