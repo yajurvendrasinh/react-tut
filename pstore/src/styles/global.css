@@ -1,0 +1,36 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* LOGIN WRAPPER STYLES */
+
+.login-wrapper {
+  min-width: 350px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* CARD STYLES */
+
+.custom-card {
+  border: white;
+  box-shadow: 1px 2px 5px rgb(200, 200, 200);
+  border-radius: none;
+}
+.pet-card {
+  width: 300px;
+}
+
+/* PET LIST STYLES */
+
+.pet-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

@@ -8,7 +8,7 @@ export default function SelectOption({
 }) {
   return (
     <div className="select-container">
-      <Form.Select data-cy={dataCy} onChange={onChangeOptions}>
+      <Form.Select size="lg" data-cy={dataCy} onChange={onChangeOptions}>
         <option
           selected={defaultValue === options.AVAILABLE}
           value={options.AVAILABLE}
